@@ -1,0 +1,17 @@
+#include <msp430.h>
+/**
+ * main.c
+ */
+int main()
+{
+    WDTCTL = WDTPW | WDTHOLD;
+        P1OUT &= ~BIT0; //sets p1.0 as the input
+        P1DIR |= BIT0; // sets direction of p1.1 to output
+        PM5CTL0 &= ~LOCKLPM5; //enables all i/o pins
+        while (1){ //infinite loop
+            P1OUT ^=BIT0; //toggles ledp1.0
+            __delay_cycles(1500000); //length of delay between blinks (in clock cycles)
+    }
+
+    return (0);
+}
