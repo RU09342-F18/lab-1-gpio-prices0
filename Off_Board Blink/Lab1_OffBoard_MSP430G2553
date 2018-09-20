@@ -1,0 +1,27 @@
+#include <msp430.h> 
+
+
+/**
+ * main.c
+ */
+
+int main()
+{
+    unsigned int i = 0; //assigns i as a 0
+    WDTCTL = WDTPW | WDTHOLD; //stops watchdog timer
+
+        P1DIR |= 0x01; //sets p1.0 as an output
+        P1DIR |= 0x40;//sets p1.6 as an output
+        while (1){ //infinite loop
+            P1OUT ^=0x01; //toggles 1.0
+            __delay_cycles(500000); //delay between blinks by clock cycles
+            if(i==0x03){ //enabled at 3
+            P1OUT ^=0x40;//toggles 1.6 on
+            i=0;//ends if statement goes back to while loop
+            }
+            i++;//adds 1 to i
+
+    }
+
+    return (0);
+}
