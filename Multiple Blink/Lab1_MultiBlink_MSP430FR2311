@@ -1,0 +1,27 @@
+#include <msp430.h> 
+
+
+/**
+ * main.c
+ */
+
+int main()
+{
+    unsigned int i = 0;
+    WDTCTL = WDTPW | WDTHOLD;//stops watchdog timer
+    PM5CTL0 &= ~LOCKLPM5;//enables all gpio pins
+        P1DIR |= 0x01; //sets p1.0 as output
+        P2DIR |= 0x01;//sets p2.0 as output
+        while (1){ //infinite loop
+            P1OUT ^=0x01; //toggles p1.0
+            __delay_cycles(500000); //delay between blinks by clock cycles
+            if(i==0x03){ //enabled at 3
+            P2OUT ^=0x01; //toggles P2.0 on until if statement is off
+            i=0;//stops if statement
+            }
+            i++; //adds 1 to i
+
+    }
+
+    return (0);
+}
