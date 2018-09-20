@@ -1,0 +1,22 @@
+#include <msp430.h> 
+
+void main(void)
+{
+PM5CTL0 &= ~LOCKLPM5; //enables all i/o pins
+WDTCTL = WDTPW + WDTHOLD; // Stop watchdog timer
+P1DIR &= ~BIT1; //sets p1.1 as an input
+P1OUT |= BIT1; //sets the pullup resistor
+P1REN |= BIT1; //pullup resistor is high for 1.1
+P1DIR |= BIT0; //p1.0 as an output
+
+while (1) {// Infinite Loop
+
+if ((P1IN & BIT1)) //if statement enabled
+{
+P1OUT |= BIT0; //turns on p1.0 when P1.1 is pressed
+}else
+{
+P1OUT &= ~BIT0; //turns offp1.0 when not press
+}
+}
+}
